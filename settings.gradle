@@ -1,0 +1,25 @@
+pluginManagement {
+    repositories {
+        // 阿里云镜像：国内下载走这里
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        // 官方源兜底：镜像里没有的东西还去官方找
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        // 阿里云镜像：国内下载走这里
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        // 官方源兜底
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "AccountBook"
+include ':app'

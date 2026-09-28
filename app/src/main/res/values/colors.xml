@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ===================== 小账本配色：奶油暖橘 =====================
+         规矩：只有 accent 一个主色，而且只给它该去的地方
+         （总金额、主按钮、选中态、可点入口）。
+         其余全部走灰阶。加第二个彩色，会把第一个的威力砍掉一半。 -->
+
+    <color name="bg">#FAF7F2</color>            <!-- 页面底色，米白不是纯白 -->
+    <color name="card">#FFFFFF</color>          <!-- 卡片 -->
+
+    <color name="accent">#FF7A45</color>        <!-- 唯一主色：暖橘 -->
+    <color name="accent_soft">#FFF0E8</color>   <!-- 主色浅调，做提示条底色 -->
+
+    <color name="input_bg">#F4F1EC</color>      <!-- 输入框 / 未选中分类的底 -->
+
+    <color name="text_primary">#1F1F1F</color>
+    <color name="text_secondary">#8A8A8A</color>
+    <color name="text_tertiary">#B5B5B5</color>
+
+    <color name="divider">#F0EDE8</color>
+
+    <!-- 语义色。规矩里说"额外颜色只留给语义"，这就是：绿=正常 -->
+    <color name="ok">#3DBE8B</color>
+</resources>

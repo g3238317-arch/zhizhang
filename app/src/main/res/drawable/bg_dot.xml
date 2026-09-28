@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 列表左边那个小圆点。颜色由代码按分类动态染上去。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/accent" />
+    <size
+        android:width="8dp"
+        android:height="8dp" />
+</shape>

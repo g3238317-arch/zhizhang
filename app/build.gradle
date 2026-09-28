@@ -1,0 +1,69 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk 30
+    buildToolsVersion '30.0.3'
+
+    defaultConfig {
+        applicationId "com.example.myledger"
+        minSdk 26
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    lint {
+        // 下面几条跟本项目的实际情况不搭，关掉免得刷屏。
+        // 每条都写了理由 —— 不是藏问题，是这些"问题"在咱这儿不算问题。
+        disable 'GradleDependency'          // 工具链是刻意锁在 2021 这一套的
+        disable 'HardcodedText'             // 这个 App 只给中文用户用，不做多语言
+        disable 'Overdraw'                  // 布局嵌套导致的背景重绘，这点开销可忽略
+        disable 'ButtonStyle'               // 实心按钮是有意选的样式
+        disable 'DisableBaselineAlignment'  // 微优化建议，布局很简单，用不上
+        disable 'RtlSymmetry'               // 不做阿拉伯语这类从右往左的语言
+        disable 'NotifyDataSetChanged'      // 账单通常就几十条，用 DiffUtil 不划算
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    // 列表
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    // 协程作用域（lifecycleScope）
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+
+    // 本地数据库 Room
+    implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'androidx.room:room-ktx:2.3.0'
+    kapt 'androidx.room:room-compiler:2.3.0'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    自适应图标（Android 8 以后都用这个）。
+    分两层叠起来，启动器自己套形状（圆的、方的、squircle）。
+
+    咱们这张设计稿本身就是"画满的"，所以：
+      背景层 = 整张图（会稍微溢出一点，把自带的圆角挤出画面，免得被裁时露白边）
+      前景层 = 空的
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@mipmap/ic_launcher_bg" />
+    <foreground android:drawable="@android:color/transparent" />
+</adaptive-icon>

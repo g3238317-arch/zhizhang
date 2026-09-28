@@ -1,0 +1,30 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# ========== 下面这几条是知账加的 ==========
+
+# 编译出来的安装包。随时能重新编一个，没必要进仓库。
+*.apk
+*.aab
+
+# ⚠️⚠️ 签名密钥：绝对不能进仓库！
+# 将来出正式版会生成 .jks 文件，它等于你家门钥匙。
+# 一旦传上去，别人就能伪造你 App 的更新包。
+*.jks
+*.keystore
+
+# Windows 缩略图缓存
+Thumbs.db

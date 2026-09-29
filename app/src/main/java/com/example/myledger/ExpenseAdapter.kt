@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myledger.data.Categories
@@ -52,12 +53,17 @@ class ExpenseAdapter(
         private val noteText: TextView = itemView.findViewById(R.id.itemNote)
         private val amountText: TextView = itemView.findViewById(R.id.itemAmount)
         private val timeText: TextView = itemView.findViewById(R.id.itemTime)
+        private val receiptIcon: ImageView = itemView.findViewById(R.id.itemReceipt)
 
         fun bind(expense: Expense) {
             categoryText.text = expense.category
             noteText.text = if (expense.note.isEmpty()) "—" else expense.note
             amountText.text = String.format(Locale.CHINA, "-¥%.2f", expense.amount)
             timeText.text = dateFormat.format(Date(expense.timestamp))
+
+            // 行是回收复用的：有小票才亮角标，没有必须按回去，不然会串到别的行上
+            receiptIcon.visibility =
+                if (expense.imagePath != null) View.VISIBLE else View.GONE
 
             // 小圆点按分类染色
             dot.backgroundTintList =

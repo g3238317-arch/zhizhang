@@ -42,6 +42,8 @@ android {
         disable 'DisableBaselineAlignment'  // 微优化建议，布局很简单，用不上
         disable 'RtlSymmetry'               // 不做阿拉伯语这类从右往左的语言
         disable 'NotifyDataSetChanged'      // 账单通常就几十条，用 DiffUtil 不划算
+        disable 'NestedWeights'             // 明细卡片和里面的列表各用一层 weight，嵌套是单屏布局
+                                            // 撑满剩余空间的唯一顺手法；多一次测量，感知为零
     }
 }
 
@@ -62,6 +64,13 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.3.0'
     implementation 'androidx.room:room-ktx:2.3.0'
     kapt 'androidx.room:room-compiler:2.3.0'
+
+    // 小票 OCR：bundled 版 = 模型打包进 APK，纯离线识别，不依赖 Google Play 服务
+    // （国产机没有 Play 服务，unbundled 版会直接趴窝，所以必须 bundled）
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.0'
+
+    // 读照片的 EXIF 旋转角：竖着拍的小票，存下来也得是正的
+    implementation 'androidx.exifinterface:exifinterface:1.3.3'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

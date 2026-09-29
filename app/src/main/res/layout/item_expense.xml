@@ -43,6 +43,16 @@
             tools:text="楼下便利店" />
     </LinearLayout>
 
+    <!-- 有小票图的账单才亮这个角标，默认隐身 -->
+    <ImageView
+        android:id="@+id/itemReceipt"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="有小票"
+        android:src="@drawable/ic_receipt"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

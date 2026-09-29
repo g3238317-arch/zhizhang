@@ -5,6 +5,16 @@
     <!-- 记账成功时短震一下的"手感"。安装时就给的权限，不用弹窗问用户 -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!--
+        targetSdk 30 起，系统默认"看不见"别的 App。
+        不声明这条，找相机拍照的意图在国产机上可能静默失败（点了没反应）。
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,6 +43,21 @@
             android:name=".StatsActivity"
             android:exported="false"
             android:label="统计" />
+
+        <!--
+            小票图的"对外窗口"。
+            相机要往咱的地盘写图、外部看图要经过咱授权，都得走这个 FileProvider。
+            能共享哪些目录由 res/xml/file_paths.xml 白名单说了算，不开全盘。
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <!--
             自动记账的"耳朵"。

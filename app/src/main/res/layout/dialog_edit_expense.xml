@@ -10,6 +10,27 @@
     android:paddingEnd="20dp"
     android:paddingBottom="8dp">
 
+    <!-- 有小票图的账单才亮这张缩略图，点一下看大图；老账单默认隐身 -->
+    <ImageView
+        android:id="@+id/dialogThumb"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginBottom="14dp"
+        android:contentDescription="小票"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <!-- 点缩略图后现身的整张小票，再点一下收回去 -->
+    <ImageView
+        android:id="@+id/receiptFullImage"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_marginBottom="14dp"
+        android:background="@color/input_bg"
+        android:contentDescription="小票大图"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/dialogAmount"
         android:layout_width="wrap_content"

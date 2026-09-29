@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FileProvider 的白名单：只把小票图这一个目录开放出去。
+    相机拍完往这儿写、看大图从这儿读，别的目录一律不借。
+-->
+<paths>
+    <!-- 确认入账后的小票图（正式存档） -->
+    <files-path
+        name="receipts"
+        path="receipts/" />
+    <!-- 系统相机拍照时的临时落点，确认后才搬进上面那个目录 -->
+    <cache-path
+        name="camera_temp"
+        path="receipts/" />
+</paths>

@@ -150,6 +150,17 @@
             app:backgroundTint="@color/accent"
             app:cornerRadius="14dp"
             app:elevation="0dp" />
+
+        <!-- 拍小票是配角，故意做成无边框灰字，不跟"记一笔"抢戏 -->
+        <Button
+            android:id="@+id/receiptButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="2dp"
+            android:text="📷 拍小票记账"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <!-- ===================== 明细卡片 ===================== -->

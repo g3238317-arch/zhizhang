@@ -2,9 +2,12 @@ package com.example.myledger
 
 import android.content.ComponentName
 import android.content.Intent
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.provider.Settings
 import android.service.notification.NotificationListenerService
 import android.view.View
@@ -59,6 +62,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var statusDot: View
     private lateinit var statusText: TextView
 
+    /** 震动马达。老手机可能没有，拿不到就让它一直 null，震的时候跳过 */
+    private var vibrator: Vibrator? = null
+
     /** 这一轮体检查到第几次了 */
     private var checkCount = 0
 
@@ -70,6 +76,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         db = AppDatabase.get(this)
+
+        // 老写法拿马达：compileSdk 30 里没有 Android 12 的 VibratorManager，
+        // 这条 deprecated 的路从 API 1 用到今天都通，够咱用
+        vibrator = @Suppress("DEPRECATION")
+        getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
 
         amountInput = findViewById(R.id.amountInput)
         noteInput = findViewById(R.id.noteInput)
@@ -166,7 +177,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             AutoStatus.DISCONNECTED -> {
-                statusText.text = "自动记账已断开（${lastConnectedText()}）· 点这里重连"
+                statusText.text = getString(R.string.auto_disconnected, lastConnectedText())
                 setStatusLook(R.color.accent, R.color.accent, clickable = true)
                 autoStatus.setOnClickListener { fixDisconnection() }
             }
@@ -253,7 +264,10 @@ class MainActivity : AppCompatActivity() {
      * 圆角统一 14dp，跟输入框、按钮对齐，不许各写各的。
      */
     private fun styleChip(chip: Chip) {
-        chip.chipCornerRadius = resources.displayMetrics.density * 14f
+        // chipCornerRadius 被官方废弃了，新写法是改 shapeAppearanceModel 里的圆角
+        chip.shapeAppearanceModel = chip.shapeAppearanceModel.toBuilder()
+            .setAllCornerSizes(resources.getDimension(R.dimen.chip_corner_radius))
+            .build()
         chip.chipStrokeWidth = 0f
         chip.isCheckedIconVisible = false
         chip.setTextSize(14f)
@@ -287,6 +301,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 记账成功的"手感"：震 70 毫秒、振幅拉满 255。
+     * VibrationEffect 是 API 26 的，咱最低就支持 26，直接用不用判断版本。
+     * 注意：振幅有一半看硬件脸色——老马达只认开关不认振幅，
+     * 那种机器上真正管用的是时长，所以两个旋钮一起拧。
+     * 马达不存在、或被系统静音策略拦了，都静默跳过——震不动不该影响记账。
+     */
+    private fun buzz() {
+        val v = vibrator ?: return
+        runCatching {
+            v.vibrate(VibrationEffect.createOneShot(70, 255))
+        }
+    }
+
     private fun saveExpense() {
         val amount = amountInput.text.toString().trim().toDoubleOrNull()
         if (amount == null || amount <= 0) {
@@ -308,6 +336,7 @@ class MainActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) { db.expenseDao().insert(expense) }
             amountInput.setText("")
             noteInput.setText("")
+            buzz()
             Toast.makeText(this@MainActivity, "记下了 ✓", Toast.LENGTH_SHORT).show()
         }
     }

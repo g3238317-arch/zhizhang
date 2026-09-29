@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">知账</string>
+    <!-- %1$s 是占位符：运行时把"上次 xx-xx xx:xx"或"从未连接过"填进来 -->
+    <string name="auto_disconnected">自动记账已断开（%1$s）· 点这里重连</string>
 </resources>

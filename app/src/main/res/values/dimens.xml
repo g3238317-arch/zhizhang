@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 分类按钮的圆角。全 App 统一这一个值，改一处处处生效 -->
+    <dimen name="chip_corner_radius">14dp</dimen>
+</resources>
